@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Connect surplus food with local food banks and track expiry dates.">
+<title>HarvestLink — Food Rescue</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="#"><span class="brandmark">✳</span> Harvest<span>Link</span></a>
+  <nav><a href="#dashboard">Dashboard</a><a href="#inventory">Expiry tracker</a><a href="#donations">Food donations</a></nav>
+  <button class="primary" id="addFoodTop">＋ Add food</button>
+</header>
+<main class="shell">
+<section class="hero">
+ <div><p class="eyebrow">FOOD RESCUE, MADE SIMPLE</p><h1>Good food deserves<br><em>another chance.</em></h1>
+ <p class="hero-copy">Keep food out of landfills. Track what’s fresh, share what’s surplus, and help your community thrive.</p>
+ <div class="hero-actions"><button class="primary" id="heroAdd">＋ Add inventory</button><a class="text-link" href="#donations">Explore available food →</a></div></div>
+ <div class="hero-art" aria-label="Illustration of fresh food"><div class="sun"></div><div class="basket"><span>🥬</span><span>🥕</span><span>🍎</span><span>🥖</span></div><div class="art-note"><b>Small action.</b><br>Big impact. 🌱</div></div>
+</section>
+<section id="dashboard" class="stats">
+ <article><span class="stat-icon green">♧</span><div><p>Food in inventory</p><strong id="totalItems">0</strong><small>items tracked</small></div></article>
+ <article><span class="stat-icon orange">◷</span><div><p>Expiring soon</p><strong id="expiringCount">0</strong><small>within 3 days</small></div></article>
+ <article><span class="stat-icon blue">♡</span><div><p>Food rescued</p><strong id="rescuedCount">0 <small>kg</small></strong><small>logged as donated</small></div></article>
+</section>
+<section class="section" id="inventory">
+ <div class="section-head"><div><p class="eyebrow">STAY AHEAD OF EXPIRY</p><h2>Inventory & freshness</h2><p class="muted">A little planning goes a long way.</p></div>
+ <button class="outline" id="addFood">＋ Add food item</button></div>
+ <div class="toolbar"><input id="search" type="search" placeholder="Search food or category…" aria-label="Search inventory"><select id="filter" aria-label="Filter inventory"><option value="all">All food</option><option value="soon">Expiring soon</option><option value="expired">Expired</option><option value="available">Available to donate</option></select></div>
+ <div class="table-wrap"><table><thead><tr><th>Food item</th><th>Quantity</th><th>Expiry date</th><th>Freshness</th><th>Actions</th></tr></thead><tbody id="inventoryRows"></tbody></table><div id="emptyInventory" class="empty" hidden>No food items found. Add an item to start tracking.</div></div>
+</section>
+<section class="section donations" id="donations">
+ <div class="section-head"><div><p class="eyebrow">SHARE THE GOODNESS</p><h2>Surplus food board</h2><p class="muted">List extra food for a nearby food bank or community partner.</p></div><button class="outline" id="addDonation">＋ List surplus</button></div>
+ <div id="donationCards" class="cards"></div>
+</section>
+<section class="impact"><div><p class="eyebrow">YOUR COMMUNITY IMPACT</p><h2>Every rescued meal<br>is a reason to celebrate.</h2><p>Record donated food in your inventory to see your rescued-food total grow.</p></div><div class="impact-badge"><span>🌎</span><strong id="impactKg">0 kg</strong><small>food rescued so far</small></div></section>
+<footer><span>✳ HarvestLink</span><span>Less waste. More nourishment. Built for community.</span><button id="resetDemo" class="quiet">Reset demo data</button></footer>
+</main>
+<dialog id="foodDialog"><form id="foodForm" method="dialog"><div class="modal-head"><div><p class="eyebrow">INVENTORY</p><h2 id="foodModalTitle">Add food item</h2></div><button type="button" class="close" id="closeFood" aria-label="Close">×</button></div>
+<label>Food name<input name="name" required placeholder="e.g. Fresh tomatoes"></label><div class="form-grid"><label>Category<select name="category"><option>Produce</option><option>Bakery</option><option>Dairy</option><option>Prepared meals</option><option>Pantry</option><option>Other</option></select></label><label>Quantity<input name="quantity" type="number" min="0.1" step="0.1" required placeholder="e.g. 12"></label></div>
+<div class="form-grid"><label>Unit<select name="unit"><option>kg</option><option>boxes</option><option>portions</option><option>items</option><option>litres</option></select></label><label>Expiry date<input name="expiry" type="date" required></label></div>
+<label><span class="checkrow"><input name="donatable" type="checkbox"> Available for donation</span></label><input name="id" type="hidden"><div class="modal-actions"><button type="button" class="outline" id="cancelFood">Cancel</button><button class="primary" type="submit">Save food item</button></div></form></dialog>
+<dialog id="donationDialog"><form id="donationForm" method="dialog"><div class="modal-head"><div><p class="eyebrow">FOOD RESCUE BOARD</p><h2>List surplus food</h2></div><button type="button" class="close" id="closeDonation" aria-label="Close">×</button></div>
+<label>Food available<input name="name" required placeholder="e.g. Fresh bread and rolls"></label><div class="form-grid"><label>Quantity<input name="quantity" type="number" min="0.1" step="0.1" required></label><label>Unit<select name="unit"><option>kg</option><option>portions</option><option>boxes</option><option>items</option></select></label></div><label>Pickup location<input name="location" required placeholder="Organization / area"></label><label>Pickup by<input name="pickup" type="date" required></label><label>Contact (optional)<input name="contact" placeholder="Phone or email"></label><div class="modal-actions"><button type="button" class="outline" id="cancelDonation">Cancel</button><button class="primary" type="submit">Publish listing</button></div></form></dialog>
+<div id="toast" role="status" aria-live="polite"></div>
+<script src="app.js"></script>
+</body></html>
